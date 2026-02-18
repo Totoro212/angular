@@ -1,0 +1,11 @@
+<form class="flex flex-col items-center gap-7" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <h1 class="text-center">Создать аккаунт</h1>
+    <input type="text" class="border rounded-xl w-80 p-3" placeholder="Логин" formControlName="login">
+    <input type="password" class="border rounded-xl w-80 p-3" placeholder="Пароль" formControlName="password">
+    <input type="text" class="border rounded-xl w-80 p-3" placeholder="Имя" formControlName="firstname">
+    <input type="text" class="border rounded-xl w-80 p-3" placeholder="Фамилия" formControlName="lastname">
+    @if(errorMessage){
+        <p class="text-red-500">{{errorMessage}}</p>
+    }
+    <button class="border rounded-xl w-60 p-3 bg-blue-500 text-white" type="submit">Добавить пользователя</button>
+</form>

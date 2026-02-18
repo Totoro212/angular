@@ -1,0 +1,30 @@
+<div class="flex flex-col items-center gap-4">
+    <div class="flex gap-20">
+        <div>
+            <p>{{currentUser()?.firstname}} {{currentUser()?.lastname}}</p>
+        </div>
+        <p>{{currentUser()?.balance}}</p>
+    </div>
+    <input class="p-4 rounded-xl border-2" type="number" placeholder="Введите сумму" [(ngModel)]="sum">
+    @if(errorMessage){
+        <p class="text-red-500">{{errorMessage}}</p>
+    }
+    <div class="flex gap-4">
+        <button class="bg-green-500 p-4 rounded-xl text-white w-40" (click)="makeTransaction(true)">Пополнить</button>
+        <button class="bg-red-500 p-4 rounded-xl text-white w-40" (click)="makeTransaction(false)">Снять</button>
+    </div>
+</div>
+<hr class="m-7">
+<div class="flex flex-col items-center gap-4 mb-7">
+    @for(oper of operations();track $index){
+        @if(oper.login == currentUser()?.login){
+            <div class="flex justify-between bg-gray-300 p-3 w-100 rounded-xl">
+                <div>
+                    <p>{{oper.login}} - Баланс: {{oper.sum}}</p>    
+                    <p [class]="oper.operation?'text-green-500':'text-red-500'">{{oper.operation? "Пополнено":"Снято"}}</p>  
+                </div>  
+                <p> {{oper.date | date:'short'}}</p>
+            </div>
+        }
+    }
+</div>

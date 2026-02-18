@@ -1,0 +1,10 @@
+<div class="flex justify-around">
+    <div class="flex gap-30">
+        <a routerLink="/accounts">Создание аккаунта</a>
+        <a routerLink="/balance">Баланс</a>
+        @if(isUserLogin()){
+            <a [routerLink]="['/operations', currentUser()]">Операции</a>
+        }
+    </div>    
+    <a routerLink="/login" (click)="logOut()">{{!isUserLogin() ? "Войти" : "Выйти"}}</a>
+</div>
