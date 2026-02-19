@@ -15,14 +15,14 @@ export class Operations {
   route = inject(ActivatedRoute)
   accountsService = inject(AccountsService)
   currentUserLogin = this.accountsService.currentUser
-  currentUser = computed(()=>this.accountsService.getUserByLogin(this.currentUserLogin()))
-  errorMessage =''
+  currentUser = computed(() => this.accountsService.getUserByLogin(this.currentUserLogin()))
+  errorMessage = ''
   sum = ''
-  makeTransaction(operation:boolean){
-    if (this.currentUser()?.balance! - Number(this.sum)<0){
+  makeTransaction(operation: boolean) {
+    if (this.currentUser()?.balance! - Number(this.sum) < 0 && !operation) {
       this.errorMessage = 'На балансе меньше средств'
     }
-    else if(Number(this.sum)>0){
+    else if (Number(this.sum) > 0) {
       this.operationsService.makeTransaction(this.currentUserLogin(), Number(this.sum), operation)
       console.log(this.sum, operation)
       this.errorMessage = ''
@@ -30,7 +30,7 @@ export class Operations {
     else {
       this.errorMessage = 'Введите реальное число'
     }
-      this.sum = ''
+    this.sum = ''
   }
   operations = this.operationsService.getAllOperations()
 }
