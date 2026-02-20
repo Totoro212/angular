@@ -4,6 +4,7 @@ import { OperationsService } from '../services/operations-service';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { Balance } from '../balance/balance';
 @Component({
   selector: 'app-operations',
   imports: [FormsModule, DatePipe],
@@ -19,7 +20,7 @@ export class Operations {
   errorMessage =''
   sum = ''
   makeTransaction(operation:boolean){
-    if (this.currentUser()?.balance! - Number(this.sum)<0){
+    if (this.currentUser()?.balance! - Number(this.sum)<0 && !operation){
       this.errorMessage = 'На балансе меньше средств'
     }
     else if(Number(this.sum)>0){

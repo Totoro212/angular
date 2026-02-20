@@ -2,9 +2,9 @@
     <div class="flex gap-30">
         <a routerLink="/accounts">Создание аккаунта</a>
         <a routerLink="/balance">Баланс</a>
-        @if(isUserLogin()){
+        @if(currentUser()){
             <a [routerLink]="['/operations', currentUser()]">Операции</a>
         }
     </div>    
-    <a routerLink="/login" (click)="logOut()">{{!isUserLogin() ? "Войти" : "Выйти"}}</a>
+    <a routerLink="/login" (click)="logOut()">{{!currentUser() ? "Войти" : "Выйти"}}</a>
 </div>

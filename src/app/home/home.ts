@@ -9,7 +9,6 @@ import { AccountsService } from '../services/accounts-service';
 })
 export class Home {
   accountsService = inject(AccountsService)
-  isUserLogin = this.accountsService.isUserLogin
   currentUser = this.accountsService.currentUser
   logOut(){
     this.accountsService.logOut()

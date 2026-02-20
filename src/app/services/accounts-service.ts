@@ -8,13 +8,11 @@ export class AccountsService {
   accounts = signal<AccountsInterface[]>([])
   router = inject(Router)
   data = localStorage.getItem('users')
-  isUserLogin = signal(false)
   userLogin = localStorage.getItem('currentUser')
   currentUser = signal('')
   constructor(){
     if(this.userLogin){
       this.currentUser.set(this.userLogin)
-      this.isUserLogin.set(true)
     }
     if(this.data){
       this.accounts.set(JSON.parse(this.data))
@@ -41,8 +39,7 @@ export class AccountsService {
         lastname, 
         balance:0
       }
-      this.accounts().push(newAccount)
-      // this.accounts.update(accounts => [...accounts, newAccount])
+      this.accounts.update(accounts => [...accounts, newAccount])
       this.saveUserInLocalStorage()
       return false
     }
@@ -60,7 +57,6 @@ export class AccountsService {
     const exist = this.accounts().find(account=>account.login==login && account.password==password)
     if (exist){
       localStorage.setItem('currentUser', login)
-      this.isUserLogin.set(true)
       this.currentUser.set(login)
       this.router.navigate(['/balance'])
       return true
@@ -70,9 +66,8 @@ export class AccountsService {
     }
   }
   logOut(){
-    if(this.isUserLogin()){
+    if(this.currentUser()){
       localStorage.removeItem('currentUser')
-      this.isUserLogin.set(false)
       this.currentUser.set('')
       this.router.navigate(['/balance'])
     }
