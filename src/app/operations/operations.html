@@ -5,7 +5,7 @@
         </div>
         <p>{{currentUser()?.balance}}</p>
     </div>
-    <input class="p-4 rounded-xl border-2" type="number" placeholder="Введите сумму" [(ngModel)]="sum">
+    <input class="p-4 rounded-xl border-2" type="number" placeholder="Введите сумму" [(ngModel)]="sum" (keydown)="blocke($event)">
     @if(errorMessage){
         <p class="text-red-500">{{errorMessage}}</p>
     }

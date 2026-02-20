@@ -14,11 +14,14 @@ export class Operations {
   authService = inject(AuthService)
   operationsService = inject(OperationsService)
   accountsService = inject(AccountsService)
+  
+  operations = this.operationsService.getAllOperations()
   currentUser = computed(()=>this.accountsService.getUserByLogin(this.authService.currentLogin()))
   errorMessage =''
   sum = ''
-  
+
   makeTransaction(operation:boolean){
+
     if(Number(this.sum)>0){
       this.operationsService.makeTransaction(this.currentUser()?.login!, Number(this.sum), operation)
       console.log(this.sum, operation)
@@ -29,5 +32,10 @@ export class Operations {
     }
       this.sum = ''
   }
-  operations = this.operationsService.getAllOperations()
+
+  blocke(event: KeyboardEvent) {
+    if (['e', 'E', '+', '-'].includes(event.key)) {
+      event.preventDefault();
+    }
+  }
 }
