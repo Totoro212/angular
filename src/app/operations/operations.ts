@@ -2,7 +2,6 @@ import { Component, inject, computed } from '@angular/core';
 import { AccountsService } from '../services/accounts-service';
 import { OperationsService } from '../services/operations-service';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { HistoryOperations } from "../history-operations/history-operations";
 import { AuthService } from '../services/auth-service';
 @Component({
@@ -14,9 +13,8 @@ import { AuthService } from '../services/auth-service';
 export class Operations {
   authService = inject(AuthService)
   operationsService = inject(OperationsService)
-  route = inject(ActivatedRoute)
   accountsService = inject(AccountsService)
-  currentUser = computed(()=>this.accountsService.getUserByLogin(this.authService.currentUser()))
+  currentUser = computed(()=>this.accountsService.getUserByLogin(this.authService.currentLogin()))
   errorMessage =''
   sum = ''
   makeTransaction(operation:boolean){

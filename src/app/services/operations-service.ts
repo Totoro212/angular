@@ -8,15 +8,15 @@ import { AuthService } from './auth-service';
 export class OperationsService {
   authService = inject(AuthService)
   accountsService = inject(AccountsService)
+  
   operations = signal<OperationInterface[]>([])
+
   accounts = this.accountsService.getAllAccounts()
-  currentUser = this.accountsService.getUserByLogin(this.authService.currentUser())
-  dataOperations = localStorage.getItem('operations')
+  currentUser = this.accountsService.getUserByLogin(this.authService.currentLogin())
 
   constructor(){
-    if(this.dataOperations){
-      this.operations.set(JSON.parse(this.dataOperations))
-    }
+    this.operations.set(JSON.parse(localStorage.getItem('operations') || ''))
+
     effect(()=>{
       localStorage.setItem('operations', JSON.stringify(this.operations()))
     })

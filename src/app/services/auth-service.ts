@@ -9,29 +9,27 @@ export class AuthService {
   router = inject(Router)
   accountsService = inject(AccountsService)
   accounts = this.accountsService.getAllAccounts()
-  currentUser = signal('')
-  userLogin = localStorage.getItem('currentUser')
+
+  currentLogin = signal('')
 
   constructor(){
-    if(this.userLogin){
-      this.currentUser.set(this.userLogin)
-    }
+    this.currentLogin.set(localStorage.getItem('currentUser') || '')
   }
+
   logIn(login:string, password:string){
     const exist = this.accounts().find(account=>account.login==login && account.password==password)
     if (exist){
       localStorage.setItem('currentUser', login)
-      this.currentUser.set(login)
+      this.currentLogin.set(login)
       return true
     }
     return false
-    
   }
+
   logOut(){
-    if(this.currentUser()){
+    if(this.currentLogin()){
       localStorage.removeItem('currentUser')
-      this.currentUser.set('')
-      this.router.navigate(['/balance'])
+      this.currentLogin.set('')
     }
   }
 }

@@ -13,7 +13,7 @@ export class Balance {
   authService = inject(AuthService)
   accOperationsService =inject(AccOpeationService)
   accounts = this.accountService.getAllAccounts()
-  currentUser = computed(()=>this.accountService.getUserByLogin(this.authService.currentUser()))
+  currentUser = computed(()=>this.accountService.getUserByLogin(this.authService.currentLogin()))
 
   deleteAccount(login:string){
     this.accOperationsService.deleteAccount(login)
