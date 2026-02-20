@@ -1,5 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { AccountsService } from '../services/accounts-service';
+import { AuthService } from '../services/auth-service';
+import { AccOpeationService } from '../services/acc-opeation-service';
 @Component({
   selector: 'app-balance',
   imports: [],
@@ -8,11 +10,12 @@ import { AccountsService } from '../services/accounts-service';
 })
 export class Balance {
   accountService = inject(AccountsService)
+  authService = inject(AuthService)
+  accOperationsService =inject(AccOpeationService)
   accounts = this.accountService.getAllAccounts()
-  currentUserLogin = this.accountService.currentUser
-  currentUser = this.accountService.getUserByLogin(this.currentUserLogin())
+  currentUser = computed(()=>this.accountService.getUserByLogin(this.authService.currentUser()))
 
   deleteAccount(login:string){
-    this.accountService.deleteAccount(login)
+    this.accOperationsService.deleteAccount(login)
   }
 }

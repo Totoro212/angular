@@ -1,8 +1,8 @@
 <section class="flex flex-col items-center">
-    @if (currentUserLogin()){
+    @if (currentUser()){
         <div class="flex justify-between p-4 bg-gray-300 rounded-xl w-xl">
-            <p>{{currentUser?.login}}</p>
-            <p>{{currentUser?.balance}}</p>
+            <p>{{currentUser()?.login}}</p>
+            <p>{{currentUser()?.balance}}</p>
         </div>
     }@else{
         @for(account of accounts();track account){

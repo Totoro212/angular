@@ -1,23 +1,25 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { effect, inject, Injectable, signal } from '@angular/core';
 import { OperationInterface } from '../interfaces/operation-interface';
 import { AccountsService } from './accounts-service';
+import { AuthService } from './auth-service';
 @Injectable({
   providedIn: 'root',
 })
 export class OperationsService {
+  authService = inject(AuthService)
   accountsService = inject(AccountsService)
   operations = signal<OperationInterface[]>([])
   accounts = this.accountsService.getAllAccounts()
-  currentUser = this.accountsService.getUserByLogin(this.accountsService.currentUser())
+  currentUser = this.accountsService.getUserByLogin(this.authService.currentUser())
   dataOperations = localStorage.getItem('operations')
 
-  saveOperationsInLocalStorage(){
-    localStorage.setItem('operations', JSON.stringify(this.operations()))
-  }
   constructor(){
     if(this.dataOperations){
       this.operations.set(JSON.parse(this.dataOperations))
     }
+    effect(()=>{
+      localStorage.setItem('operations', JSON.stringify(this.operations()))
+    })
   }
 
   operationWithBalance(login:string, sum:number, operation:boolean){
@@ -38,6 +40,7 @@ export class OperationsService {
 
   makeTransaction(login:string, sum:number, operation:boolean){
     const newOperation:OperationInterface = {
+      id: this.operations().length+1,
       login,
       sum,
       operation,
@@ -45,10 +48,9 @@ export class OperationsService {
     }
     this.operations.update(operations=>[...operations, newOperation])
     this.operationWithBalance(login, sum, operation)
-    this.accountsService.saveUserInLocalStorage()
-    this.saveOperationsInLocalStorage()
   }
   getAllOperations(){
     return this.operations
   } 
+  
 }

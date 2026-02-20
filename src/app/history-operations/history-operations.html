@@ -1,0 +1,24 @@
+<table class="min-w-150 border mx-auto m-7">
+    <thead class="bg-gray-300">
+        <tr>
+            <th class="p-3">Пользователь</th>
+            <th class="p-3">Сумма</th>
+            <th class="p-3">Операция</th>
+            <th class="p-3">Дата</th>
+            <th class="p-3"></th>
+        </tr>
+    </thead>
+    <tbody class="divide-y ">
+    @for(oper of operations();track oper.id){
+        @if(oper.login == currentUser()?.login){
+            <tr class="text-center">
+                <td class="p-3">{{oper.login}}</td>
+                <td class="p-3">{{oper.sum}}</td>
+                <td class="p-3" [class]="oper.operation?'text-green-500':'text-red-500'">{{oper.operation? "Пополнено":"Снято"}}</td>
+                <td class="p-3">{{oper.date | date:'short'}}</td>
+                <td class="p-3 bg-red-500 text-white" (click)="deleteOperation(oper.id, oper.operation, oper.sum, oper.login)">Удалить</td>
+            </tr>
+        }
+    }
+    </tbody>
+</table>

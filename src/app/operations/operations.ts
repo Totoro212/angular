@@ -3,28 +3,25 @@ import { AccountsService } from '../services/accounts-service';
 import { OperationsService } from '../services/operations-service';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { DatePipe } from '@angular/common';
-import { Balance } from '../balance/balance';
+import { HistoryOperations } from "../history-operations/history-operations";
+import { AuthService } from '../services/auth-service';
 @Component({
   selector: 'app-operations',
-  imports: [FormsModule, DatePipe],
+  imports: [FormsModule, HistoryOperations],
   templateUrl: './operations.html',
   styleUrl: './operations.css',
 })
 export class Operations {
+  authService = inject(AuthService)
   operationsService = inject(OperationsService)
   route = inject(ActivatedRoute)
   accountsService = inject(AccountsService)
-  currentUserLogin = this.accountsService.currentUser
-  currentUser = computed(()=>this.accountsService.getUserByLogin(this.currentUserLogin()))
+  currentUser = computed(()=>this.accountsService.getUserByLogin(this.authService.currentUser()))
   errorMessage =''
   sum = ''
   makeTransaction(operation:boolean){
-    if (this.currentUser()?.balance! - Number(this.sum)<0 && !operation){
-      this.errorMessage = 'На балансе меньше средств'
-    }
-    else if(Number(this.sum)>0){
-      this.operationsService.makeTransaction(this.currentUserLogin(), Number(this.sum), operation)
+    if(Number(this.sum)>0){
+      this.operationsService.makeTransaction(this.currentUser()?.login!, Number(this.sum), operation)
       console.log(this.sum, operation)
       this.errorMessage = ''
     }
