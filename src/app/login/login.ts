@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { AccountsService } from '../services/accounts-service';
 import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth-service';
@@ -12,12 +11,12 @@ import { AuthService } from '../services/auth-service';
 export class Login {
   authService = inject(AuthService)
   router = inject(Router)
-  accountsService = inject(AccountsService)
   form = new FormGroup({
     login: new FormControl(''),
     password: new FormControl('')
   })
   errorMessage = ''
+
   logIn(){
     if (this.form.valid){
         const login = this.form.value.login!
@@ -31,5 +30,4 @@ export class Login {
     }
     this.form.reset()
   }
-  
 }

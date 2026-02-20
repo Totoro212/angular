@@ -1,13 +1,12 @@
-import { effect, inject, Injectable, signal } from '@angular/core';
+import { effect, Injectable, signal } from '@angular/core';
 import { AccountsInterface } from '../interfaces/accounts-interface';
-import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
 })
 export class AccountsService {
   accounts = signal<AccountsInterface[]>([])
-  router = inject(Router)
   data = localStorage.getItem('users')
+
   constructor(){
     if(this.data){
       this.accounts.set(JSON.parse(this.data))
@@ -37,8 +36,4 @@ export class AccountsService {
     }
     return true
   }
-
-
-
-
 }

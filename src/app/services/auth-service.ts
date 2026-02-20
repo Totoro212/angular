@@ -1,15 +1,12 @@
 import { signal, inject, Injectable } from '@angular/core';
 import { AccountsService } from './accounts-service';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  router = inject(Router)
   accountsService = inject(AccountsService)
   accounts = this.accountsService.getAllAccounts()
-
   currentLogin = signal('')
 
   constructor(){

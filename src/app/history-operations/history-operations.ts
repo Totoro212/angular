@@ -14,8 +14,9 @@ export class HistoryOperations {
   authService = inject(AuthService)
   operationsService = inject(OperationsService)
   accOpeationService = inject(AccOpeationService)
-  operations = this.operationsService.getAllOperations()
   accountsService = inject(AccountsService)
+  
+  operations = this.operationsService.getAllOperations()
   currentUser = computed(()=>this.accountsService.getUserByLogin(this.authService.currentLogin()))
   
   deleteOperation(id:number, operation:boolean, sum:number, login:string){

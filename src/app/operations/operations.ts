@@ -17,6 +17,7 @@ export class Operations {
   currentUser = computed(()=>this.accountsService.getUserByLogin(this.authService.currentLogin()))
   errorMessage =''
   sum = ''
+  
   makeTransaction(operation:boolean){
     if(Number(this.sum)>0){
       this.operationsService.makeTransaction(this.currentUser()?.login!, Number(this.sum), operation)

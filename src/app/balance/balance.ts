@@ -12,6 +12,7 @@ export class Balance {
   accountService = inject(AccountsService)
   authService = inject(AuthService)
   accOperationsService =inject(AccOpeationService)
+  
   accounts = this.accountService.getAllAccounts()
   currentUser = computed(()=>this.accountService.getUserByLogin(this.authService.currentLogin()))
 
