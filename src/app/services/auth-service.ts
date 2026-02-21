@@ -10,10 +10,10 @@ export class AuthService {
   currentUser = signal<AccountsInterface | null>(null)
 
   constructor(){
-    this.currentUser.set(JSON.parse(localStorage.getItem('currentUser')||'{}'))
-    effect(()=>{
-      this.accounts().find(account=>account.login == this.currentUser()?.login)
-    })
+    this.currentUser.set(JSON.parse(localStorage.getItem('currentUser')||'null'))
+    // effect(()=>{
+    //   this.accounts().find(account=>account.login == this.currentUser()?.login)
+    // })
   }
 
   logIn(login:string, password:string){

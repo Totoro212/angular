@@ -15,7 +15,10 @@ export class AccountsService {
   }
   
   getAllAccounts(){
-    return this.accounts
+    return this.accounts  
+  }
+  getAccountByLogin(login:string){
+    return this.accounts().find(account=>account.login == login)
   }
   createAccount(login:string, password:string, firstname:string, lastname:string){
     const exist = this.accounts().find(acc => acc.login == login)

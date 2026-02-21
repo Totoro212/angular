@@ -19,13 +19,12 @@ export class HistoryOperations {
   accountsService = inject(AccountsService)
   loginUser = signal('')
   operations = this.operationsService.getAllOperations()
-  currentUser = computed(()=>this.authService.currentUser())
+  currentUser = computed(()=>this.accountsService.getAccountByLogin(this.loginUser()))
   constructor(){
     this.route.params.subscribe((params)=>{
       this.loginUser.set(params['login'])
     })
   }
-
   deleteOperation(id:number, operation:boolean, sum:number, login:string){
     this.accOpeationService.deleteOperation(id, operation, sum, login)
   }
