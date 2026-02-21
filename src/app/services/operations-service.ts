@@ -1,4 +1,4 @@
-import { effect, inject, Injectable, signal } from '@angular/core';
+import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { OperationInterface } from '../interfaces/operation-interface';
 import { AccountsService } from './accounts-service';
 import { AuthService } from './auth-service';
@@ -12,7 +12,7 @@ export class OperationsService {
   operations = signal<OperationInterface[]>([])
 
   accounts = this.accountsService.getAllAccounts()
-  currentUser = this.accountsService.getUserByLogin(this.authService.currentLogin())
+  currentUser = computed(()=> this.authService.currentUser())
 
   constructor(){
     this.operations.set(JSON.parse(localStorage.getItem('operations') || ''))
@@ -51,6 +51,6 @@ export class OperationsService {
   }
   getAllOperations(){
     return this.operations
-  } 
+  }
   
 }

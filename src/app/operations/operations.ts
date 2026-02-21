@@ -16,7 +16,8 @@ export class Operations {
   accountsService = inject(AccountsService)
   
   operations = this.operationsService.getAllOperations()
-  currentUser = computed(()=>this.accountsService.getUserByLogin(this.authService.currentLogin()))
+  currentUser = computed(()=>this.authService.currentUser())
+  
   errorMessage =''
   sum = ''
 
@@ -24,7 +25,6 @@ export class Operations {
 
     if(Number(this.sum)>0){
       this.operationsService.makeTransaction(this.currentUser()?.login!, Number(this.sum), operation)
-      console.log(this.sum, operation)
       this.errorMessage = ''
     }
     else {

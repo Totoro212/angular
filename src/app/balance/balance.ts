@@ -16,7 +16,7 @@ export class Balance {
   accOperationsService =inject(AccOpeationService)
 
   accounts = this.accountService.getAllAccounts()
-  currentUser = computed(()=>this.accountService.getUserByLogin(this.authService.currentLogin()))
+  currentUser = computed(()=>this.authService.currentUser())
 
   deleteAccount(login:string){
     this.accOperationsService.deleteAccount(login)

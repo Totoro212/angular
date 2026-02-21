@@ -20,7 +20,7 @@ export class HistoryOperations {
   
   operations = this.operationsService.getAllOperations()
   loginUser = signal('')
-  currentUser = computed(()=>this.accountsService.getUserByLogin(this.loginUser()))
+  currentUser = computed(()=>this.authService.currentUser())
   constructor(){
     this.route.params.subscribe((params)=>{
       this.loginUser.set(params['login'])

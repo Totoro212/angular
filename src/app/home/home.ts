@@ -9,7 +9,7 @@ import { AuthService } from '../services/auth-service';
 })
 export class Home {
   authService = inject(AuthService)
-  currentUser = computed(()=>this.authService.currentLogin())
+  currentUser = computed(()=>this.authService.currentUser())
   logOut(){
     this.authService.logOut() 
   }

@@ -3,7 +3,7 @@
         <a routerLink="/accounts">Создание аккаунта</a>
         <a routerLink="/balance">Баланс</a>
         @if(currentUser()){
-            <a [routerLink]="['/operations', currentUser()]">Операции</a>
+            <a [routerLink]="['/operations', currentUser()?.login]">Операции</a>
         }
     </div>    
     <a routerLink="/login" (click)="logOut()">{{!currentUser() ? "Войти" : "Выйти"}}</a>
