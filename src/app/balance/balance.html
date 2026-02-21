@@ -6,7 +6,7 @@
         </div>
     }@else{
         @for(account of accounts();track account){
-        <div class="flex m-3 gap-3">
+        <div class="flex m-3 gap-3" (click)="show()">
             <div class="flex justify-between p-4 bg-gray-300 rounded-xl w-xl">
                 <p>{{account.login}}</p>
                 <p>{{account.balance}}</p>
