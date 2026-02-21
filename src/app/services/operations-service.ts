@@ -21,6 +21,7 @@ export class OperationsService {
       localStorage.setItem('operations', JSON.stringify(this.operations()))
     })
   }
+  getAllOperations(){return this.operations}
 
   operationWithBalance(login:string, sum:number, operation:boolean){
     this.accounts.update(accounts=>{
@@ -40,7 +41,7 @@ export class OperationsService {
 
   makeTransaction(login:string, sum:number, operation:boolean){
     const newOperation:OperationInterface = {
-      id: this.operations().length+1,
+      id: Date.now(),
       login,
       sum,
       operation,
@@ -49,9 +50,4 @@ export class OperationsService {
     this.operations.update(operations=>[...operations, newOperation])
     this.operationWithBalance(login, sum, operation)
   }
-  getAllOperations(){
-    return this.operations
-  }
-
-  
 }

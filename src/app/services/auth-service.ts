@@ -7,13 +7,21 @@ import { AccountsInterface } from '../interfaces/accounts-interface';
 export class AuthService {
   accountsService = inject(AccountsService)
   accounts = this.accountsService.getAllAccounts()
+  
   currentUser = signal<AccountsInterface | null>(null)
-
+  
   constructor(){
     this.currentUser.set(JSON.parse(localStorage.getItem('currentUser')||'null'))
-    // effect(()=>{
-    //   this.accounts().find(account=>account.login == this.currentUser()?.login)
-    // })
+  
+    const updatedUser = computed(()=>{
+      return this.accounts().find(account=>account.login == this.currentUser()?.login)
+    })
+    effect(()=>{
+      if (updatedUser()){
+        localStorage.setItem('currentUser', JSON.stringify(updatedUser()))
+        this.currentUser.set(JSON.parse(localStorage.getItem('currentUser')||'null'))
+      }
+    })
   }
 
   logIn(login:string, password:string){

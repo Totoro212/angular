@@ -10,7 +10,7 @@
     </thead>
     <tbody class="divide-y ">
     @for(oper of operations();track oper.id){
-        @if(oper.login == currentUser()?.login){
+        @if(oper.login == user()){
             <tr class="text-center">
                 <td class="p-3">{{oper.login}}</td>
                 <td class="p-3">{{oper.sum}}</td>

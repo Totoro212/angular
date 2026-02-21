@@ -1,5 +1,4 @@
 import { Component, inject, computed } from '@angular/core';
-import { AccountsService } from '../services/accounts-service';
 import { OperationsService } from '../services/operations-service';
 import { FormsModule } from '@angular/forms';
 import { HistoryOperations } from "../history-operations/history-operations";
@@ -13,7 +12,6 @@ import { AuthService } from '../services/auth-service';
 export class Operations {
   authService = inject(AuthService)
   operationsService = inject(OperationsService)
-  accountsService = inject(AccountsService)
   
   operations = this.operationsService.getAllOperations()
   currentUser = computed(()=>this.authService.currentUser())

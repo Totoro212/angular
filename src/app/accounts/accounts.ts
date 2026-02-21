@@ -23,8 +23,8 @@ export class Accounts {
       const password = this.form.value.password!
       const firstname = this.form.value.firstname!
       const lastname = this.form.value.lastname!
-      const r = this.accountsService.createAccount(login, password, firstname, lastname)
-      if(r) this.errorMessage = 'Данный пользователь занят'
+      const newUser = this.accountsService.createAccount(login, password, firstname, lastname)
+      if(!newUser) this.errorMessage = 'Данный пользователь занят'
 
       this.form.reset()
     }

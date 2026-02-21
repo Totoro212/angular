@@ -5,35 +5,31 @@ import { AccountsInterface } from '../interfaces/accounts-interface';
 })
 export class AccountsService {
   accounts = signal<AccountsInterface[]>([])
-  data = localStorage.getItem('users')
-
+ 
   constructor(){
-    if(this.data){
-      this.accounts.set(JSON.parse(this.data))
-    }
+    this.accounts.set(JSON.parse(localStorage.getItem('users')||'[]'))
     effect(()=>localStorage.setItem('users', JSON.stringify(this.accounts())))
   }
   
   getAllAccounts(){
     return this.accounts  
   }
-  getAccountByLogin(login:string){
-    return this.accounts().find(account=>account.login == login)
-  }
+
   createAccount(login:string, password:string, firstname:string, lastname:string){
-    const exist = this.accounts().find(acc => acc.login == login)
-    if(!exist)
-    {
-      const newAccount:AccountsInterface = {
+    const newAccount:AccountsInterface = {
         login,
         password, 
         firstname, 
         lastname, 
         balance:0
-      }
-      this.accounts.update(accounts => [...accounts, newAccount])
+    }
+    if(this.accounts().find(acc => acc.login == login))
+    {
       return false
     }
-    return true
+    else{
+      this.accounts.update(accounts => [...accounts, newAccount])
+      return true
+    }
   }
 }
