@@ -40,7 +40,7 @@ export class OperationsService {
 
   makeTransaction(login:string, sum:number, operation:boolean){
     const newOperation:OperationInterface = {
-      id: Date.now(),
+      id: this.operations().length+1,
       login,
       sum,
       operation,
