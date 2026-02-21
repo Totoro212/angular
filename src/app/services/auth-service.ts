@@ -16,6 +16,7 @@ export class AuthService {
     const updatedUser = computed(()=>{
       return this.accounts().find(account=>account.login == this.currentUser()?.login)
     })
+    //Использую чтобы обновлять параметры текущего пользователя если даыннй пользователь провел какую то операцию
     effect(()=>{
       if (updatedUser()){
         localStorage.setItem('currentUser', JSON.stringify(updatedUser()))
@@ -27,7 +28,6 @@ export class AuthService {
   logIn(login:string, password:string){
     const user = this.accounts().find(account=>account.login==login && account.password==password)
     if (user){      
-      localStorage.setItem('currentUser', JSON.stringify(user))
       this.currentUser.set(user)
       return true
     }
@@ -35,9 +35,7 @@ export class AuthService {
   }
 
   logOut(){
-    if(this.currentUser()){
-      localStorage.removeItem('currentUser')
-      this.currentUser.set(null)
-    }
+    this.currentUser.set(null)
+    localStorage.removeItem('currentUser')
   }
 }
