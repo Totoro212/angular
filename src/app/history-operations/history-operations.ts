@@ -12,20 +12,20 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './history-operations.css',
 })
 export class HistoryOperations {
-  route = inject(ActivatedRoute)
   authService = inject(AuthService)
+  route = inject(ActivatedRoute)
   operationsService = inject(OperationsService)
   accOpeationService = inject(AccOpeationService)
   accountsService = inject(AccountsService)
-  
-  operations = this.operationsService.getAllOperations()
   loginUser = signal('')
+  operations = this.operationsService.getAllOperations()
   currentUser = computed(()=>this.authService.currentUser())
   constructor(){
     this.route.params.subscribe((params)=>{
       this.loginUser.set(params['login'])
     })
   }
+
   deleteOperation(id:number, operation:boolean, sum:number, login:string){
     this.accOpeationService.deleteOperation(id, operation, sum, login)
   }

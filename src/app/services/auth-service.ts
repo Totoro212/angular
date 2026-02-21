@@ -11,6 +11,9 @@ export class AuthService {
 
   constructor(){
     this.currentUser.set(JSON.parse(localStorage.getItem('currentUser')||'{}'))
+    effect(()=>{
+      this.accounts().find(account=>account.login == this.currentUser()?.login)
+    })
   }
 
   logIn(login:string, password:string){
