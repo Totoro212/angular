@@ -11,7 +11,7 @@ export class AccountsService {
     effect(()=>localStorage.setItem('users', JSON.stringify(this.accounts())))
   }
   
-  getAllAccounts(){
+  getAllAccounts(){ 
     return this.accounts  
   }
 
