@@ -1,39 +1,31 @@
-import { signal, inject, Injectable, effect, computed } from '@angular/core';
+import { signal, inject, Injectable, linkedSignal } from '@angular/core';
 import { AccountsService } from './accounts-service';
-import { AccountsInterface } from '../interfaces/accounts-interface';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   accountsService = inject(AccountsService)
   accounts = this.accountsService.getAllAccounts()
-  
-  currentUser = signal<AccountsInterface | null>(null)
-  
+
+  currentUserLogin = signal(localStorage.getItem('currentUser')||'null')
+  currentUser = linkedSignal({
+    source: this.currentUserLogin,
+    computation: (acc) => this.accounts().find(account => account.login==acc) ?? null
+  })
   constructor(){
-    this.currentUser.set(JSON.parse(localStorage.getItem('currentUser')||'null'))
-  
-    const updatedUser = computed(()=>{
-      return this.accounts().find(account=>account.login == this.currentUser()?.login)
-    })
-    //Использую чтобы обновлять параметры текущего пользователя если даыннй пользователь провел какую то операцию
-    effect(()=>{
-      if (updatedUser()){
-        localStorage.setItem('currentUser', JSON.stringify(updatedUser()))
-        this.currentUser.set(JSON.parse(localStorage.getItem('currentUser')||'null'))
-      }
-    })
+    console.log(this.currentUser())
   }
 
   logIn(login:string, password:string){
     const user = this.accounts().find(account=>account.login==login && account.password==password)
-    if (user){      
+    if (user){     
       this.currentUser.set(user)
+      localStorage.setItem('currentUser', login)
       return true
     }
     return false
   }
-
+  
   logOut(){
     this.currentUser.set(null)
     localStorage.removeItem('currentUser')

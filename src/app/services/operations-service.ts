@@ -9,11 +9,10 @@ export class OperationsService {
   authService = inject(AuthService)
   accountsService = inject(AccountsService)
   accounts = this.accountsService.getAllAccounts()
-  operations = signal<OperationInterface[]>([])
+  operations = signal<OperationInterface[]>(JSON.parse(localStorage.getItem('operations') || '[]'))
   currentUser = computed(()=> this.authService.currentUser())
 
   constructor(){
-    this.operations.set(JSON.parse(localStorage.getItem('operations') || '[]'))
     effect(()=>localStorage.setItem('operations', JSON.stringify(this.operations())))
   }
 

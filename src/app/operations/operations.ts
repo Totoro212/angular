@@ -20,7 +20,6 @@ export class Operations {
   sum = ''
 
   makeTransaction(operation:boolean){
-
     if(Number(this.sum)>0){
       this.operationsService.makeTransaction(this.currentUser()?.login!, Number(this.sum), operation)
       this.errorMessage = ''

@@ -22,6 +22,7 @@ export class HistoryOperations {
       this.user.set(params['login'])
     })
   }
+  
   deleteOperation(id:number, operation:boolean, sum:number, login:string){
     this.accOpeationService.deleteOperation(id, operation, sum, login)
   }
