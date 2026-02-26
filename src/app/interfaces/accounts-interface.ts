@@ -3,5 +3,5 @@ export interface AccountsInterface {
     password:string;
     firstname:string;
     lastname:string;
-    balance:number;
+    balance:string;
 }

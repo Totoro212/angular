@@ -16,11 +16,11 @@ export class Operations {
   protected currentUser = computed(()=>this.authService.currentUser())
   
   protected errorMessage =''
-  protected sum = ''
+  protected sum = ''.toString()
   
   makeTransaction(operation:boolean){
-    if(Number(this.sum)>0){
-      this.operationsService.makeTransaction(this.currentUser()?.login!, Number(this.sum), operation)
+    if(this.sum){
+      this.operationsService.makeTransaction(this.currentUser()?.login!, this.sum, operation)
       this.errorMessage = ''
     }
     else {

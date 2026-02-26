@@ -25,7 +25,7 @@ export class Accounts {
       const lastname = this.form.value.lastname!
       const newUser = this.accountsService.createAccount(login, password, firstname, lastname)
       if(!newUser) this.errorMessage = 'Данный пользователь занят'
-
+      else alert('Пользователь добавлен')
       this.form.reset()
     }
     else{

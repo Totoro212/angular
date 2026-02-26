@@ -2,6 +2,7 @@ import { effect, inject, Injectable,signal } from '@angular/core';
 import { OperationInterface } from '../interfaces/operation-interface';
 import { AuthService } from './auth-service';
 import { AccountsService } from './accounts-service';
+import Decimal from 'decimal.js';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,7 @@ export class OperationsService {
     })
   }
 
-  makeTransaction(login:string, sum:number, operation:boolean){
+  makeTransaction(login:string, sum:string, operation:boolean){
     const newOperation:OperationInterface = {
       id: Date.now(),
       login,
@@ -29,7 +30,7 @@ export class OperationsService {
     this.accountsService.changeUserBalance(login, sum, operation)
   }
 
-  deleteOperation(id:number, operation:boolean, sum:number, login:string){
+  deleteOperation(id:number, operation:boolean, sum:string, login:string){
     this.operations.update(operations => operations.filter(oper => oper.id != id))
     this.accountsService.changeUserBalance(login, sum, !operation)
   }

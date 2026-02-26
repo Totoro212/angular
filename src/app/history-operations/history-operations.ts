@@ -21,7 +21,7 @@ export class HistoryOperations {
     })
   }
   
-  deleteOperation(id:number, operation:boolean, sum:number, login:string){
+  deleteOperation(id:number, operation:boolean, sum:string, login:string){
     this.operationsService.deleteOperation(id, operation, sum, login)
   }
 }
