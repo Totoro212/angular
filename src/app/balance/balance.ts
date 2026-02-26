@@ -15,15 +15,15 @@ export class Balance {
   private authService = inject(AuthService)
   private operationsService = inject(OperationsService)
 
-  accounts = computed(()=>this.accountService.accounts())
-  currentUser = computed(()=>this.authService.currentUser())
+  protected accounts = computed(()=>this.accountService.accounts())
+  protected currentUser = computed(()=>this.authService.currentUser())
 
 
   deleteAccount(login:string){
     this.accountService.deleteAccount(login)
     this.operationsService.deleteAllAccountOperations(login)
   }
-  
+
   openHistory(login:string){
     this.router.navigate(['/history', login])
   }

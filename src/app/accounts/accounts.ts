@@ -8,8 +8,8 @@ import { AccountsService } from '../services/accounts-service';
   styleUrl: './accounts.css',
 })
 export class Accounts {
-  accountsService = inject(AccountsService)
-  errorMessage = ''
+  private accountsService = inject(AccountsService)
+  protected errorMessage = ''
   form = new FormGroup({
     login: new FormControl('', [Validators.required, Validators.minLength(3)]),
     password: new FormControl('', [Validators.required, Validators.minLength(3)]),

@@ -10,13 +10,13 @@ import { AuthService } from '../services/auth-service';
   styleUrl: './operations.css',
 })
 export class Operations {
-  authService = inject(AuthService)
-  operationsService = inject(OperationsService)
+  private authService = inject(AuthService)
+  private operationsService = inject(OperationsService)
   
-  currentUser = computed(()=>this.authService.currentUser())
+  protected currentUser = computed(()=>this.authService.currentUser())
   
-  errorMessage =''
-  sum = ''
+  protected errorMessage =''
+  protected sum = ''
   
   makeTransaction(operation:boolean){
     if(Number(this.sum)>0){

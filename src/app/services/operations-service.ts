@@ -32,7 +32,7 @@ export class OperationsService {
 
   deleteOperation(id:number, operation:boolean, sum:number, login:string){
     this.operations.update(operations => operations.filter(oper => oper.id != id))
-    this.accountsService.changeUserBalance(login, sum, operation)
+    this.accountsService.changeUserBalance(login, sum, !operation)
 
   }
 
@@ -40,6 +40,4 @@ export class OperationsService {
     this.operations.update(operations => operations.filter(operation => operation.login != login))
   }
 
-
-  
 }

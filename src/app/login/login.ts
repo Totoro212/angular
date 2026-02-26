@@ -9,9 +9,9 @@ import { AuthService } from '../services/auth-service';
   styleUrl: './login.css',
 })
 export class Login {
-  authService = inject(AuthService)
-  router = inject(Router)
-  form = new FormGroup({
+  private authService = inject(AuthService)
+  private router = inject(Router)
+  protected form = new FormGroup({
     login: new FormControl(''),
     password: new FormControl('')
   })

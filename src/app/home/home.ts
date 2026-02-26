@@ -8,9 +8,9 @@ import { AuthService } from '../services/auth-service';
   styleUrl: './home.css',
 })
 export class Home {
-  authService = inject(AuthService)
-  currentUser = computed(()=>this.authService.currentUser())
+  private authService = inject(AuthService)
+  protected currentUser = computed(()=>this.authService.currentUser())
   logOut(){
-    this.authService.logOut() 
+    if(this.currentUser()) this.authService.logOut() 
   }
 }

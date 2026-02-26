@@ -6,5 +6,5 @@
             <a [routerLink]="['/operations', currentUser()?.login]">Операции</a>
         }
     </div>    
-    <a routerLink="/login" (click)="logOut()">{{!currentUser() ? "Войти" : "Выйти"}}</a>
+    <a routerLink="/login" (click)="logOut()">{{currentUser() ? "Выйти" : "Войти"}}</a>
 </div>

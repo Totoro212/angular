@@ -9,15 +9,15 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './history-operations.css',
 })
 export class HistoryOperations {
-  route = inject(ActivatedRoute)
-  operationsService = inject(OperationsService)
+  private route = inject(ActivatedRoute)
+  private operationsService = inject(OperationsService)
   
-  user = signal('')
-  operations = computed(() => this.operationsService.operations().filter(operation => operation.login == this.user()))
+  protected userLogin = signal('')
+  protected operations = computed(() => this.operationsService.operations().filter(operation => operation.login == this.userLogin()))
 
   constructor(){
     this.route.params.subscribe((params)=>{
-      this.user.set(params['login'])
+      this.userLogin.set(params['login'])
     })
   }
   

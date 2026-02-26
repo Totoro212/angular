@@ -17,7 +17,11 @@
             <td class="p-3">{{oper.date | date:'short'}}</td>
             <td class="p-3 bg-red-500 text-white" (click)="deleteOperation(oper.id, oper.operation, oper.sum, oper.login)">Удалить</td>
         </tr>
-        
+    }
+    @empty {
+        <tr class="text-center">
+            <td class="p-3" colspan="5">Нет Операций</td>
+        </tr>
     }
     </tbody>
 </table>
