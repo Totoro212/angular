@@ -4,7 +4,7 @@
             <p>{{currentUser()?.login}}</p>
             <p>{{currentUser()?.balance}}</p>
         </div>
-    }@else{
+    }@else{ 
         @for(account of accounts();track account.login){
         <div class="flex m-3 gap-3" >
             <div class="flex justify-between p-4 bg-gray-300 rounded-xl w-xl" (click)="openHistory(account.login)">

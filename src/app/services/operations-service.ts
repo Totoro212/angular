@@ -1,7 +1,8 @@
-import { computed, effect, EventEmitter, inject, Injectable, linkedSignal, Output, output, signal } from '@angular/core';
+import { effect, inject, Injectable,signal } from '@angular/core';
 import { OperationInterface } from '../interfaces/operation-interface';
 import { AuthService } from './auth-service';
 import { AccountsService } from './accounts-service';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -30,12 +31,15 @@ export class OperationsService {
   }
 
   deleteOperation(id:number, operation:boolean, sum:number, login:string){
-    this.operations.update(operations => operations.filter(operation => operation.id != id))
-    this.accountsService.deleteAccountOperations(operation, sum, login)
+    this.operations.update(operations => operations.filter(oper => oper.id != id))
+    this.accountsService.changeUserBalance(login, sum, operation)
+
   }
 
   deleteAllAccountOperations(login:string){
     this.operations.update(operations => operations.filter(operation => operation.login != login))
   }
+
+
   
 }

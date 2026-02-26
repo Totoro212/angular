@@ -13,7 +13,7 @@ export class HistoryOperations {
   operationsService = inject(OperationsService)
   
   user = signal('')
-  operations = computed(()=>this.operationsService.operations())
+  operations = computed(() => this.operationsService.operations().filter(operation => operation.login == this.user()))
 
   constructor(){
     this.route.params.subscribe((params)=>{

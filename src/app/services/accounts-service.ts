@@ -9,10 +9,11 @@ export class AccountsService {
   constructor(){
     effect(()=>localStorage.setItem('users', JSON.stringify(this.accounts())))
   }
-  
+
   deleteAccount(login:string){
     this.accounts.update(accounts => accounts.filter(account => account.login != login))
   }
+  
   createAccount(login:string, password:string, firstname:string, lastname:string){
     const newAccount:AccountsInterface = {
         login,
@@ -30,31 +31,15 @@ export class AccountsService {
       return true
     }
   }
-
+  
   changeUserBalance(login:string, sum:number, operation:boolean){
     this.accounts.update(accounts=>{
-      return accounts.map(acc=>{
-        if(acc.login == login && operation){
-          return {...acc, balance:acc.balance+sum}
-        }
-        else if (acc.login ==login && !operation){
-          return {...acc, balance:acc.balance-sum}
-        }
-        else{
-          return acc
-        }
-      })
-    })
-  }
-  
-  deleteAccountOperations(operation:boolean, sum:number, login:string){
-    this.accounts.update(accounts => {
-      return accounts.map(account => {
+      return accounts.map(account=>{
         if(account.login == login && operation){
-          return {...account, balance:account.balance-sum}
-        }
-        else if (account.login == login && !operation){
           return {...account, balance:account.balance+sum}
+        }
+        else if (account.login ==login && !operation){
+          return {...account, balance:account.balance-sum}
         }
         return account
       })

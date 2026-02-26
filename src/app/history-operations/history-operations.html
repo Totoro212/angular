@@ -10,15 +10,14 @@
     </thead>
     <tbody class="divide-y ">
     @for(oper of operations();track oper.id){
-        @if(oper.login == user()){
-            <tr class="text-center">
-                <td class="p-3">{{oper.login}}</td>
-                <td class="p-3">{{oper.sum}}</td>
-                <td class="p-3" [class]="oper.operation?'text-green-500':'text-red-500'">{{oper.operation? "Пополнено":"Снято"}}</td>
-                <td class="p-3">{{oper.date | date:'short'}}</td>
-                <td class="p-3 bg-red-500 text-white" (click)="deleteOperation(oper.id, oper.operation, oper.sum, oper.login)">Удалить</td>
-            </tr>
-        }
+        <tr class="text-center">
+            <td class="p-3">{{oper.login}}</td>
+            <td class="p-3">{{oper.sum}}</td>
+            <td class="p-3" [class]="oper.operation?'text-green-500':'text-red-500'">{{oper.operation? "Пополнено":"Снято"}}</td>
+            <td class="p-3">{{oper.date | date:'short'}}</td>
+            <td class="p-3 bg-red-500 text-white" (click)="deleteOperation(oper.id, oper.operation, oper.sum, oper.login)">Удалить</td>
+        </tr>
+        
     }
     </tbody>
 </table>

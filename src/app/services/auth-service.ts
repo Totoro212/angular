@@ -1,5 +1,6 @@
-import { signal, inject, Injectable, computed, linkedSignal } from '@angular/core';
+import { signal, inject, Injectable, computed,} from '@angular/core';
 import { AccountsService } from './accounts-service';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -8,9 +9,7 @@ export class AuthService {
   accounts = computed(()=>this.accountsService.accounts())
 
   currentUserLogin = signal<string | null>(localStorage.getItem('currentUser'))
-  currentUser = computed(()=>{
-    return this.accounts().find(account => account.login == this.currentUserLogin())
-  })
+  currentUser = computed(()=> this.accounts().find(account => account.login == this.currentUserLogin()))
 
   logIn(login:string, password:string){
     const user = this.accounts().find(account=>account.login==login && account.password==password)
