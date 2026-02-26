@@ -1,33 +1,29 @@
-import { signal, inject, Injectable, linkedSignal } from '@angular/core';
+import { signal, inject, Injectable, computed, linkedSignal } from '@angular/core';
 import { AccountsService } from './accounts-service';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   accountsService = inject(AccountsService)
-  accounts = this.accountsService.getAllAccounts()
+  accounts = computed(()=>this.accountsService.accounts())
 
-  currentUserLogin = signal(localStorage.getItem('currentUser')||'null')
-  currentUser = linkedSignal({
-    source: this.currentUserLogin,
-    computation: (acc) => this.accounts().find(account => account.login==acc) ?? null
+  currentUserLogin = signal<string | null>(localStorage.getItem('currentUser'))
+  currentUser = computed(()=>{
+    return this.accounts().find(account => account.login == this.currentUserLogin())
   })
-  constructor(){
-    console.log(this.currentUser())
-  }
 
   logIn(login:string, password:string){
     const user = this.accounts().find(account=>account.login==login && account.password==password)
     if (user){     
-      this.currentUser.set(user)
       localStorage.setItem('currentUser', login)
+      this.currentUserLogin.set(login)
       return true
     }
     return false
   }
   
   logOut(){
-    this.currentUser.set(null)
     localStorage.removeItem('currentUser')
+    this.currentUserLogin.set(null)
   }
 }

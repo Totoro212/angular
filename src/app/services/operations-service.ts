@@ -1,4 +1,4 @@
-import { computed, effect, inject, Injectable, signal } from '@angular/core';
+import { computed, effect, EventEmitter, inject, Injectable, linkedSignal, Output, output, signal } from '@angular/core';
 import { OperationInterface } from '../interfaces/operation-interface';
 import { AuthService } from './auth-service';
 import { AccountsService } from './accounts-service';
@@ -8,12 +8,13 @@ import { AccountsService } from './accounts-service';
 export class OperationsService {
   authService = inject(AuthService)
   accountsService = inject(AccountsService)
-  accounts = this.accountsService.getAllAccounts()
+  
   operations = signal<OperationInterface[]>(JSON.parse(localStorage.getItem('operations') || '[]'))
-  currentUser = computed(()=> this.authService.currentUser())
 
   constructor(){
-    effect(()=>localStorage.setItem('operations', JSON.stringify(this.operations())))
+    effect(()=>{
+      localStorage.setItem('operations', JSON.stringify(this.operations()))
+    })
   }
 
   getAllOperations(){return this.operations}
@@ -27,22 +28,16 @@ export class OperationsService {
       date:Date.now()
     }
     this.operations.update(operations=>[...operations, newOperation])
-    this.operationWithBalance(login, sum, operation)
+    this.accountsService.changeUserBalance(login, sum, operation)
   }
 
-  operationWithBalance(login:string, sum:number, operation:boolean){
-    this.accounts.update(accounts=>{
-      return accounts.map(acc=>{
-        if(acc.login == login && operation){
-          return {...acc, balance:acc.balance+sum}
-        }
-        else if (acc.login ==login && !operation){
-          return {...acc, balance:acc.balance-sum}
-        }
-        else{
-          return acc
-        }
-      })
-    })
+  deleteOperation(id:number, operation:boolean, sum:number, login:string){
+    this.operations.update(operations => operations.filter(operation => operation.id != id))
+    this.accountsService.deleteAccountOperations(operation, sum, login)
   }
+
+  deleteAllAccountOperations(login:string){
+    this.operations.update(operations => operations.filter(operation => operation.login != login))
+  }
+  
 }

@@ -8,26 +8,8 @@ export class AccOpeationService {
   accountsService = inject(AccountsService)
   operationsService = inject(OperationsService)
 
-  accounts = this.accountsService.getAllAccounts()
-  operations = this.operationsService.getAllOperations()
-  
   deleteAccount(login:string){
-    this.accounts.update(accounts => accounts.filter(account => account.login != login))
-    this.operations.update(operations => operations.filter(operation => operation.login != login))
+    this.accountsService.deleteAccount(login)
+    this.operationsService.deleteAllAccountOperations(login)
   }
-  deleteOperation(id:number, operation:boolean, sum:number, login:string){
-    this.operations.update(operations => operations.filter(operation => operation.id != id))
-    this.accounts.update(accounts => {
-      return accounts.map(account => {
-        if(account.login == login && operation){
-          return {...account, balance:account.balance-sum}
-        }
-        else if (account.login == login && !operation){
-          return {...account, balance:account.balance+sum}
-        }
-        return account
-      })
-    })
-  }
-  
 }

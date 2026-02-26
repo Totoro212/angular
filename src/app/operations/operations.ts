@@ -13,7 +13,6 @@ export class Operations {
   authService = inject(AuthService)
   operationsService = inject(OperationsService)
   
-  operations = this.operationsService.getAllOperations()
   currentUser = computed(()=>this.authService.currentUser())
   
   errorMessage =''

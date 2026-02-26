@@ -1,7 +1,6 @@
 import { Component, inject, computed, signal } from '@angular/core';
 import { OperationsService } from '../services/operations-service';
 import { DatePipe } from '@angular/common';
-import { AccOpeationService } from '../services/acc-opeation-service';
 import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-history-operations',
@@ -12,10 +11,9 @@ import { ActivatedRoute } from '@angular/router';
 export class HistoryOperations {
   route = inject(ActivatedRoute)
   operationsService = inject(OperationsService)
-  accOpeationService = inject(AccOpeationService)
   
   user = signal('')
-  operations = this.operationsService.getAllOperations()
+  operations = computed(()=>this.operationsService.operations())
 
   constructor(){
     this.route.params.subscribe((params)=>{
@@ -24,6 +22,6 @@ export class HistoryOperations {
   }
   
   deleteOperation(id:number, operation:boolean, sum:number, login:string){
-    this.accOpeationService.deleteOperation(id, operation, sum, login)
+    this.operationsService.deleteOperation(id, operation, sum, login)
   }
 }
