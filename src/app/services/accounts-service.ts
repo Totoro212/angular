@@ -10,10 +10,6 @@ export class AccountsService {
     effect(()=>localStorage.setItem('users', JSON.stringify(this.accounts())))
   }
   
-  getAllAccounts(){ 
-    return this.accounts  
-  }
-
   deleteAccount(login:string){
     this.accounts.update(accounts => accounts.filter(account => account.login != login))
   }

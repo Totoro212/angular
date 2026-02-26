@@ -17,8 +17,6 @@ export class OperationsService {
     })
   }
 
-  getAllOperations(){return this.operations}
-
   makeTransaction(login:string, sum:number, operation:boolean){
     const newOperation:OperationInterface = {
       id: Date.now(),
