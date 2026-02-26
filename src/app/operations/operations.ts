@@ -26,7 +26,6 @@ export class Operations {
     else {
       this.errorMessage = 'Введите реальное число'
     }
-    
       this.sum = ''
   }
 
