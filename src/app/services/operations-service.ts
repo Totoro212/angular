@@ -7,10 +7,9 @@ import { AccountsService } from './accounts-service';
   providedIn: 'root',
 })
 export class OperationsService {
-  authService = inject(AuthService)
-  accountsService = inject(AccountsService)
+  private accountsService = inject(AccountsService)
   
-  operations = signal<OperationInterface[]>(JSON.parse(localStorage.getItem('operations') || '[]'))
+  public operations = signal<OperationInterface[]>(JSON.parse(localStorage.getItem('operations') || '[]'))
 
   constructor(){
     effect(()=>{
@@ -33,7 +32,6 @@ export class OperationsService {
   deleteOperation(id:number, operation:boolean, sum:number, login:string){
     this.operations.update(operations => operations.filter(oper => oper.id != id))
     this.accountsService.changeUserBalance(login, sum, !operation)
-
   }
 
   deleteAllAccountOperations(login:string){

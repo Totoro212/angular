@@ -5,11 +5,11 @@ import { AccountsService } from './accounts-service';
   providedIn: 'root',
 })
 export class AuthService {
-  accountsService = inject(AccountsService)
-  accounts = computed(()=>this.accountsService.accounts())
+  private accountsService = inject(AccountsService)
+  private accounts = computed(()=>this.accountsService.accounts())
 
-  currentUserLogin = signal<string | null>(localStorage.getItem('currentUser'))
-  currentUser = computed(()=> this.accounts().find(account => account.login == this.currentUserLogin()))
+  private currentUserLogin = signal<string | null>(localStorage.getItem('currentUser'))
+  public currentUser = computed(()=> this.accounts().find(account => account.login == this.currentUserLogin()))
 
   logIn(login:string, password:string){
     const user = this.accounts().find(account=>account.login==login && account.password==password)

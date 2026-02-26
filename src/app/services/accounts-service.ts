@@ -4,8 +4,8 @@ import { AccountsInterface } from '../interfaces/accounts-interface';
   providedIn: 'root',
 })
 export class AccountsService {
-  accounts = signal<AccountsInterface[]>(JSON.parse(localStorage.getItem('users')||'[]'))
- 
+  public accounts = signal<AccountsInterface[]>(JSON.parse(localStorage.getItem('users')||'[]'))
+
   constructor(){
     effect(()=>localStorage.setItem('users', JSON.stringify(this.accounts())))
   }
