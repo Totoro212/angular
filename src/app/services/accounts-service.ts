@@ -2,7 +2,7 @@ import { effect, Injectable, signal } from '@angular/core';
 import { AccountsInterface } from '../interfaces/accounts-interface';
 import Decimal from 'decimal.js';
 
-Decimal.set({ precision: 50, toExpNeg: -50, toExpPos: 50 });
+Decimal.set({ precision: 50 });
 
 @Injectable({
   providedIn: 'root',
@@ -41,10 +41,10 @@ export class AccountsService {
       return accounts.map(account => {
         const balance = new Decimal(account.balance)
         if (account.login == login && operation) {
-          return { ...account, balance: balance.plus(quantity).toFixed() }
+          return { ...account, balance: balance.plus(quantity).toString() }
         }
         else if (account.login == login && !operation) {
-          return { ...account, balance: balance.minus(quantity).toFixed() }
+          return { ...account, balance: balance.minus(quantity).toString() }
         }
         return account
       })

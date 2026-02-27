@@ -5,9 +5,9 @@
         </div>
         <p>{{currentUser()?.balance}}</p>
     </div>
-    <input class="p-4 rounded-xl border-2" type="text" placeholder="Введите сумму" [(ngModel)]="sum" (keydown)="blocke($event)">
+    <input class="p-4 rounded-xl border-2" type="text" placeholder="Введите сумму" [formControl]="sum">
     @if(errorMessage){
-        <p class="text-red-500">{{errorMessage}}</p>
+    <p class="text-red-500">{{errorMessage}}</p>
     }
     <div class="flex gap-4">
         <button class="bg-green-500 p-4 rounded-xl text-white w-40" (click)="makeTransaction(true)">Пополнить</button>
@@ -15,4 +15,4 @@
     </div>
 </div>
 <hr class="m-7">
-<app-history-operations/>
+<app-history-operations />

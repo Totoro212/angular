@@ -1,8 +1,6 @@
 import { effect, inject, Injectable,signal } from '@angular/core';
 import { OperationInterface } from '../interfaces/operation-interface';
-import { AuthService } from './auth-service';
 import { AccountsService } from './accounts-service';
-import Decimal from 'decimal.js';
 
 @Injectable({
   providedIn: 'root',
