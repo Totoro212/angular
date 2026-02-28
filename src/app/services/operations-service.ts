@@ -11,9 +11,7 @@ export class OperationsService {
   public operations = signal<OperationInterface[]>(JSON.parse(localStorage.getItem('operations') || '[]'))
 
   constructor(){
-    effect(()=>{
-      localStorage.setItem('operations', JSON.stringify(this.operations()))
-    })
+    effect(()=> localStorage.setItem('operations', JSON.stringify(this.operations())))
   }
 
   makeTransaction(login:string, sum:string, operation:boolean){

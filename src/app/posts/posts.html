@@ -1,0 +1,10 @@
+<h1 class="text-xl text-center">Посты</h1>
+
+<div class="flex flex-col">
+    @for (post of posts(); track post.id) {
+        <div class="border-2 p-2 m-3" (click)="showDetails(post.id)">
+            <h3 class="text-xl font-bold">{{post.title}} - {{post.userId}}</h3>
+            <p>{{post.body}}</p>
+        </div>
+    }
+</div>
